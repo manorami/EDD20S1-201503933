@@ -12,18 +12,20 @@ int canteje = 0, decimeje = 0;
 
 
 //----------------------------La clase de datos de la lista 
-class datoowner {
-public:
-	int idowner = 0;
-	float cantidadmonedas = 0.0;
-
-public:
-	datoowner(int idw, float cantmon) {
-		idowner = idw;
-		cantidadmonedas = cantmon;
-	}
-
-};
+//class datoowner {
+//
+//	int idowner = 0;
+//	float cantidadmonedas = 0.0;
+//	Nodo *next;
+//
+//	datoowner(int idw, float cantmon) {
+//		idowner = idw;
+//		cantidadmonedas = cantmon;
+//		next = NULL;
+//
+//	}
+//
+//};
 
 
 
@@ -33,6 +35,7 @@ class coin {
 public:
 	string nombre, symbol;
 	int cantidad, decimales;
+	
 
 
 public:
@@ -48,17 +51,40 @@ public:
 		cout << "La moneda se llama " << nombre << " que se representa usando " << symbol << " , pueden haber hasta " << cantidad << " monedas en el mercado y la cantidad de decimales es de " << decimales << ".  \n\n\n";
 	}
 
+	bool ventamonedas(int idusu, double cantmon) {
+		if()
+	}
+
 
 
 };
 
 int menu(coin n);
-void insertarLista(Nodo *&, datoowner);
+void insertarLista(Nodo *&, int, double);
+void buscarLista(Nodo *, int, double);
 
 
-struct Nodo {
-	datoowner dato;
-	Nodo *siguiente;
+class Nodo {
+public:
+	//datoowner dato;
+	//Nodo *siguiente;
+	//
+	//Nodo(datoowner d, Nodo *sigui) {
+	//	dato = d;
+	//	siguiente = sigui;
+	//}
+
+	int data1 = 0;
+	double data2 = 0.0;
+	Nodo *next;
+
+	Nodo(int a, double b) {
+		data1 = a;
+		data2 = b;
+		next = NULL;
+	}
+
+
 };
 
 
@@ -83,10 +109,10 @@ int main()
 	coin nuevacoin(nomeje, symeje, canteje, decimeje);
 	nuevacoin.informacion();
 	
-	datoowner alfa (111,canteje);
 
+	insertarLista(lista, 1010, ("%6f \n", canteje));
 
-	insertarLista(lista, alfa);
+	
 
 	menu(nuevacoin);
 
@@ -134,16 +160,16 @@ int menu(coin nc) {
 }
 
 
-void insertarLista(Nodo *&lista, datoowner da) {
-	Nodo *nuevo_nodo = new Nodo();
-	nuevo_nodo->dato = da;
+void insertarLista(Nodo *&lista,int n, double d) {
+	Nodo *nuevo_nodo = new Nodo(n,d);
+	
 
 	Nodo *aux1 = lista;
 	Nodo *aux2;
 
-	while ((aux1 != NULL) && (aux1->dato.cantidadmonedas<da.cantidadmonedas)) {
+	while ((aux1 != NULL) && (aux1->data1<n)) {
 		aux2 = aux1;
-		aux1 = aux1->siguiente;
+		aux1 = aux1->next;
 	}
 	if (lista = aux1) {
 		//insercion al inicio
@@ -152,9 +178,12 @@ void insertarLista(Nodo *&lista, datoowner da) {
 	}
 	else {
 		// inserción al final 
-		aux2->siguiente = nuevo_nodo;
+		aux2->next = nuevo_nodo;
 	}
 
-	nuevo_nodo->siguiente = aux1;
+	nuevo_nodo->next = aux1;
 }
 
+void buscarLista(Nodo *lista, int n, double d) {
+	Nodo *actual = new Nodo(n,d);
+}
