@@ -27,6 +27,7 @@ class Lista{
     void agregar(int carnet,string nombre){
         Nodo *aux = new Nodo(carnet,nombre);
         aux->next=cabeza;
+	cabeza = aux;
         
     }
     
