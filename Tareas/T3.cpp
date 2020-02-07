@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 
+
 using namespace std;
+
 
 class Nodo {
     public:
@@ -22,7 +24,7 @@ class Lista{
     
     Nodo *cabeza =0;
     
-    void ingresar(int carnet,string nombre){
+    void agregar(int carnet,string nombre){
         Nodo *aux = new Nodo(carnet,nombre);
         aux->next=cabeza;
         
@@ -38,17 +40,16 @@ class Lista{
     }
     
     
-    void buscar(int car){
+    void buscar(int carnet){
         Nodo *aux = cabeza;
-        while (aux->carnet != car){
+        while (aux->carnet != carnet){
             aux = aux -> next;
         }
-        cout << carnet << " " << nombre << endl;
+        cout << carnet << " " << aux->nombre << endl;
     }
     
     void eliminar(int car){
         Nodo *aux = cabeza;
-        }
         while (aux->carnet != car){
             aux = aux -> next;
         }
@@ -58,6 +59,9 @@ class Lista{
     
 };
 
+
+
 int main()
-{
+{  
+
 }
