@@ -1,189 +1,180 @@
+
 #include <iostream>
-#include <list>
 #include <string>
-#include <stdio.h>
-#include <iomanip>
 
 
 using namespace std;
 
-string nomeje = "", symeje = "";
-int canteje = 0, decimeje = 0;
 
-
-//----------------------------La clase de datos de la lista 
-//class datoowner {
-//
-//	int idowner = 0;
-//	float cantidadmonedas = 0.0;
-//	Nodo *next;
-//
-//	datoowner(int idw, float cantmon) {
-//		idowner = idw;
-//		cantidadmonedas = cantmon;
-//		next = NULL;
-//
-//	}
-//
-//};
-
-
-
-
-//--------------------------------- La clase principal moneda 
 class coin {
 public:
 	string nombre, symbol;
-	int cantidad, decimales;
-	
+	int cantidad;
+
 
 
 public:
-	coin(string nom, string sym, int cant, int decim) {
+	coin(string nom, string sym, int cant) {
 		nombre = nom;
 		symbol = sym;
 		cantidad = cant;
-		decimales = decim;
 	}
 
 
 	void informacion() {
-		cout << "La moneda se llama " << nombre << " que se representa usando " << symbol << " , pueden haber hasta " << cantidad << " monedas en el mercado y la cantidad de decimales es de " << decimales << ".  \n\n\n";
+		cout << "La moneda se llama " << nombre << " que se representa usando " << symbol << " , pueden haber hasta " << cantidad << " monedas en el mercado. \n\n\n";
 	}
 
-	bool ventamonedas(int idusu, double cantmon) {
-		if()
+	void vender(){
+
 	}
-
-
-
 };
-
-int menu(coin n);
-void insertarLista(Nodo *&, int, double);
-void buscarLista(Nodo *, int, double);
-
 
 class Nodo {
 public:
-	//datoowner dato;
-	//Nodo *siguiente;
-	//
-	//Nodo(datoowner d, Nodo *sigui) {
-	//	dato = d;
-	//	siguiente = sigui;
-	//}
-
-	int data1 = 0;
-	double data2 = 0.0;
+	int codigo;
+	int monedas;
 	Nodo *next;
 
-	Nodo(int a, double b) {
-		data1 = a;
-		data2 = b;
+	Nodo(int a, int b) {
+		codigo = a;
+		monedas = b;
 		next = NULL;
 	}
+};
 
+
+class Lista {
+public:
+
+	Nodo* cabeza = 0;
+
+	int cabezaid() {
+		Nodo *aux = cabeza;
+		return aux->codigo;
+	}
+
+	int cabezamonedas() {
+		Nodo *aux = cabeza;
+		return aux->monedas;
+	}
+
+	void agregar(int carnet, int mon) {
+		Nodo *aux = new Nodo(carnet, mon);
+		aux->next = cabeza;
+		cabeza = aux;
+
+	}
+
+	void mostrar() {
+		Nodo *aux = cabeza;
+		while (aux != 0) {
+			cout << aux->codigo << " " << aux->monedas << endl;
+			aux = aux->next;
+		}
+
+	}
+
+
+	bool buscar(int cod) {
+		bool bandera = false;
+		Nodo *aux = cabeza;
+		while (aux->next!=NULL) {
+			if (aux->codigo == cod) {
+				bandera = true;
+			}
+			aux = aux->next;
+		}
+
+		if (bandera == true) {
+			cout << cod << " " << aux->monedas << endl;
+		}
+		
+		return bandera;
+	}
+
+	int largo() {
+		int con = 0;
+		Nodo *aux = cabeza;
+		while (aux->next != NULL) {
+			con += 1;
+		}
+		return con;
+	}
 
 };
 
 
-
+string nome = "";
+string syme = "";
+int cante = 0;
+Lista *l1 = new Lista();
 
 
 
 int main()
 {
-	Nodo *lista = NULL;
 
-	cout << "Primero hay que crear la moneda\n";
-	cout << "Ingrese el nombre de la moneda (string) \n";
-	cin >> nomeje;
-	cout << "Ingrese simbolo(s) representativos (string)\n";
-	cin >> symeje;
-	cout << "Ingrese la cantidad de monedas máximas que pueden existir (int)\n ";
-	cin >> canteje;
-	cout << "Ingrese la cantidad de decimales que tendrá su moneda (int) \n";
-	cin >> decimeje;
-
-	coin nuevacoin(nomeje, symeje, canteje, decimeje);
-	nuevacoin.informacion();
+	inicio();
+	menu();
 	
-
-	insertarLista(lista, 1010, ("%6f \n", canteje));
-
-	
-
-	menu(nuevacoin);
+	int opt = 0;
 
 
-}
-
-
-
-int menu(coin nc) {
-
-	int opt = -1;
-
-	while (opt != 0) {
-
-		cout << "¿Que es lo que desea hacer?\n\n";
-		cout << "Opcion 1. Obtener informacion de la moneda\n";
-		cout << "Opcion 2. Obtener la lista de usuarios y monedas\n";
-		cout << "Opcion 3. Vender monedas a usuarios \n";
-		cout << "Opcion 4. Transferir monedas \n";
-		cout << "Opcion 5. Salir\n";
+	while (opt >= 0) {
 		cin >> opt;
-		cout << endl;
-
-		switch (opt) {
+		switch (opt)
+		{
 		case 1:
-			nc.informacion();
+			int venta;
+			cout << "ingrese monedas a vender\n";
+			cin >> venta;
 
+			if (l1->cabezamonedas > venta) {
+				cout << "Solo posee " << l1->cabezamonedas << " monedas";
+			}
+			else {
+				l1->agregar((l1->largo) + 1, venta);
+			}
+			
 			break;
 
 		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			opt = 0;
+
 			break;
 		}
-
 	}
+	
 
+
+	system("PAUSE");
 	return 0;
 
 }
 
 
-void insertarLista(Nodo *&lista,int n, double d) {
-	Nodo *nuevo_nodo = new Nodo(n,d);
+void inicio() {
+	cout << "Primero hay que crear la moneda\n";
+	cout << "Ingrese el nombre de la moneda (string) \n";
+	cin >> nome;
+	cout << "Ingrese simbolo(s) representativos (string)\n";
+	cin >> syme;
+	cout << "Ingrese la cantidad de monedas máximas que pueden existir (int)\n ";
+	cin >> cante;
+
+	coin nuevacoin(nome, syme, cante);
+	nuevacoin.informacion();
+
+	l1->agregar(1010, cante);
 	
 
-	Nodo *aux1 = lista;
-	Nodo *aux2;
-
-	while ((aux1 != NULL) && (aux1->data1<n)) {
-		aux2 = aux1;
-		aux1 = aux1->next;
-	}
-	if (lista = aux1) {
-		//insercion al inicio
-		lista = nuevo_nodo;
-
-	}
-	else {
-		// inserción al final 
-		aux2->next = nuevo_nodo;
-	}
-
-	nuevo_nodo->next = aux1;
 }
 
-void buscarLista(Nodo *lista, int n, double d) {
-	Nodo *actual = new Nodo(n,d);
+void menu() {
+	cout << "\nQué es lo que desea hacer?\n";
+	cout << "1 Vender monedas\n";
+	cout << "2 Transferir monedas\n";
+	cout << "3 Mostrar listado de usuarios\n\n\n";
+
+	
 }
